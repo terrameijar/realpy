@@ -1,0 +1,8 @@
+#VirtualEnv folder
+venv/
+
+#Temp files
+*~
+
+#python specific
+*.pyc
