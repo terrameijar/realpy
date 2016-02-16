@@ -33,7 +33,7 @@ def login_required(test):
             return test(*args, **kwargs)
         else:
             flash('You need to login first')
-            return  redirect_url(url_for('login'))
+            return  redirect(url_for('login'))
     return wrap
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -119,7 +119,8 @@ def delete_entry(task_id):
     return redirect(url_for('tasks'))
 
 
-@app.route('/logout')
+@app.route('/logout/')
+@login_required
 def logout():
     session.pop('logged_in', None)
     session.pop('user_id', None)
@@ -137,7 +138,7 @@ def login():
              name=request.form['name'],
              password=request.form['password']).first()
          if u is None:
-             error = 'Invalid username or password'
+             error = 'Invalid username or password.'
              return render_template(
                  "login.html",
                  form=form,
